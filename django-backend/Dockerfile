@@ -15,7 +15,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY docker/requirements.txt /app/
 RUN pip install --upgrade pip
-RUN pip install --upgrade Pillow tzdata pytz
+RUN pip install --upgrade Pillow tzdata
 RUN pip install -r requirements.txt
 COPY . /app/
 # Timezone sync
