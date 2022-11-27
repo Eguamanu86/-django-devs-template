@@ -39,3 +39,9 @@ migrate:
 
 createsuperuser:
 	docker exec -it dev-django python manage.py createsuperuser
+
+diagram:
+	docker exec -it dev-django python manage.py graph_models -a -o ./diagrams/diagram.png
+
+diagram-grouped:
+	docker exec -it dev-django python manage.py graph_models -a -g -o ./diagrams/diagram-grouped.png

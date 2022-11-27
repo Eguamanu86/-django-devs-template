@@ -13,6 +13,7 @@ services:
       - ./.env
     volumes:
       - ./django-backend:/app
+      - ./diagrams/backend:/app/diagrams
       - ./django-backend/docker/nginx.conf:/etc/nginx/sites-enabled/nginx.conf
       - ./django-backend/docker/supervisord.conf:/etc/supervisord.conf
       - ./gcp:/app/gcp

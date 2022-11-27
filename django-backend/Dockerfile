@@ -6,6 +6,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update
 RUN apt-get install -y net-tools nginx
 RUN apt -y install gettext
+RUN apt -y install graphviz
 RUN rm /etc/nginx/sites-enabled/default
 COPY docker/nginx.conf /etc/nginx/sites-enabled
 # Supervisord

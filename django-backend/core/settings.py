@@ -51,7 +51,8 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'security'
+    'django_extensions',
+    'security',
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + THIRD_PARTY_APPS + LOCAL_APPS
