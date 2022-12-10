@@ -33,7 +33,6 @@ __pycache__/
 !.vscode/launch.json
 node_modules/
 local_dir/
-venv/
 staticfiles/
 mediafiles/
 service-account.json
