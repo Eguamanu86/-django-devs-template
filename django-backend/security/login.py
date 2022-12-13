@@ -19,12 +19,14 @@ class LoginAuthView(LoginView):
             'class': 'form-control form-control-md',
             'placeholder': 'Ingrese su username',
             'autocomplete': 'off',
-            'autofocus': True
+            'autofocus': True,
+            'required': True
         }
         form.fields['password'].widget.attrs = {
             'class': 'form-control form-control-md',
             'placeholder': 'Ingrese su password',
             'autocomplete': 'off',
+            'required': True
         }
         return form
 

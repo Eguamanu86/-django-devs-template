@@ -23,20 +23,21 @@
                         </div>
 
                         <!-- title-->
-                        <h4 class="mt-0">Sign In</h4>
-                        <p class="text-muted mb-4">Enter your email address and password to access account.</p>
+                        <h4 class="mt-0">Inicio de sesión</h4>
+                        <p class="text-muted mb-4">Ingrese su dirección de correo electrónico y contraseña para acceder a la cuenta.</p>
 
                         <!-- form -->
-                        <form action="/" method="GET">
+                        <form id="id-form-user-login">
+                            {% csrf_token %}
                             <div class="mb-3">
-                                <label for="emailaddress" class="form-label">Email address</label>
-                                <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email">
+                                <label class="form-label" for="{{ form.username.id_for_label }}">Usuario o Email:</label>
+                                {{ form.username }}
                             </div>
                             <div class="mb-3">
-                                <a href="pages-recoverpw.html" class="text-muted float-end"><small>Forgot your password?</small></a>
-                                <label for="password" class="form-label">Password</label>
+                                <a href="pages-recoverpw.html" class="text-muted float-end"><small>¿Olvidaste tu contraseña?</small></a>
+                                <label class="form-label" for="{{ form.password.id_for_label }}">Contraseña:</label>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                                    {{ form.password }}
                                     <div class="input-group-text" data-password="false">
                                         <span class="password-eye"></span>
                                     </div>
@@ -44,12 +45,12 @@
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="checkbox-signin">
-                                    <label class="form-check-label" for="checkbox-signin">Remember me</label>
+                                    <input type="checkbox" class="form-check-input" id="checkbox-signin" required>
+                                    <label class="form-check-label" for="checkbox-signin">No soy un Robot</label>
                                 </div>
                             </div>
                             <div class="d-grid mb-0 text-center">
-                                <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Log In </button>
+                                <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Iniciar sesión </button>
                             </div>
                             <!-- social-->
                             <div class="text-center mt-4">
@@ -97,5 +98,40 @@
         </div>
 {% endblock %}
 
+{% block srcjs %}
+    <script src="/static/app/security.js"></script>
+{% endblock %}
+
 {% block scriptjs %}
+ <script>
+    const formLogin = document.querySelector('#id-form-user-login');
+
+    formLogin.addEventListener('submit', async (event) =>{
+
+        event.preventDefault();
+        try{
+            const userName = document.querySelector('#id_username').value;
+            const password = document.querySelector('#id_password').value;
+
+            const user = new User(undefined, userName, password)
+            const security = new Security(user)
+            const responseJson = await security.loginUser()
+            window.location.href = '/';
+
+        }catch (error) {
+            let message;
+            if (error instanceof Response) {
+                const status = error.status
+                const responseJson = await error.json()
+                message = responseJson?.message
+            }else{
+                message = error.message ?? error
+            }
+            console.log(message)
+        }
+    });
+
+
+
+ </script>
 {% endblock %}
