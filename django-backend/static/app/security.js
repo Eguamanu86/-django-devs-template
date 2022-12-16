@@ -1,7 +1,4 @@
-"use strict";
-
 class User {
-
   constructor(id = undefined, userName, password, email, firstName, lastName) {
     this.id = id;
     this.userName = userName;
@@ -10,18 +7,17 @@ class User {
     this.firstName = firstName;
     this.lastName = lastName;
   }
-
 }
 
 class Security {
-
   constructor(user) {
-    this.user = user;
+    this.user = user
   }
 
-  async loginUser() {
+  async userLogin() {
 
     const formData = new FormData();
+
     formData.append('username', this.user.userName)
     formData.append('password', this.user.password)
 
@@ -35,11 +31,13 @@ class Security {
       },
       body: formData
     }
+
     const response = await fetch('/security/login', options)
     if (!response.ok) {
       throw response
     }
     return await response.json()
+
   }
 
 }
